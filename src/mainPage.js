@@ -8,7 +8,10 @@
 
 
 const content = document.querySelector("#content");
-let DEFAULT_LOCATION = 'London';
+const loc = document.querySelector("#current_location");
+const temp = document.querySelector("#current_temperature");
+
+let DEFAULT_LOCATION = 'Melbourne';
 const FORECAST_DAYS = 15;
 const API_KEY = '4G7BU7TV8PA554USAZK7L53UU';
 
@@ -52,8 +55,8 @@ const getWeatherData = (location) => {
     console.log(date1);
     console.log(date2);
 
-    // make API call to obtain weather forecast
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${date1}/${date2}?key=${API_KEY}`;    
+    // make API call to obtain weather forecast (with metric units option)
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${date1}/${date2}?unitGroup=metric&key=${API_KEY}`;    
     console.log(url);
     
     // make API call if cached data not available
@@ -62,16 +65,13 @@ const getWeatherData = (location) => {
     if (data === null) {
         data = callWeatherAPI(url);
     }
-    console.log(data);
 
-
-
-
+    return data
 };
 
 
 const writeToCache = (url, data) => {
-    console.log('Adding data string to local storage: ', JSON.stringify(data))
+    console.log('Adding data string to local storage')
     localStorage.setItem(url, JSON.stringify(data));
 };
 
@@ -82,17 +82,34 @@ const readFromCache = (url) => {
 
 
 
-export const loadMainPage = () => {
+export const loadMainPage = async () => {
 
     // clear out all existing content first
     // clearContent();
+    const data = await getWeatherData(DEFAULT_LOCATION);
+    console.log(data);
 
-    getWeatherData(DEFAULT_LOCATION);
 
+    // add current location and temp to header
+    const current_loc = data.resolvedAddress;
+    const current_temp =  data.currentConditions.temp;
+    loc.textContent = current_loc;
+    temp.textContent = current_temp;
 
     // body.appendChild(content);
 
 
 };
+
+
+const convertCtoF = (tempC) => {
+    return (tempC * 9/5) + 32;
+};
+
+
+const convertFtoC = (tempF) => {
+    return (tempF - 32) * 5/9;
+};
+
 
 
