@@ -83,8 +83,7 @@ const readFromCache = (url) => {
 
 
 
-export const loadMainPage = async () => {
-
+export const loadMainPage = async (temperature_units) => {
     // clear out all existing content first
     // clearContent();
     const data = await getWeatherData(DEFAULT_LOCATION);
@@ -97,15 +96,15 @@ export const loadMainPage = async () => {
     temp.textContent = current_temp;
   
     // render current weather panel and append to content grid
-    content.appendChild(createCurrentWeatherPanel(data));
+    content.appendChild(createCurrentWeatherPanel(data, temperature_units));
 
 
 };
 
-const createCurrentWeatherPanel = (data) => {
+const createCurrentWeatherPanel = (data, temperature_units) => {
     const current_time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     const current_temp =  data.currentConditions.temp;
-    const units = "°C"; // hard-coded for now (will hook up with toggle switch later)
+    const units = temperature_units; 
 
     const current_weather_cell = createDivElement("", "current-weather-cell", null);
     const current_weather = createDivElement("", "current-weather", null);
@@ -117,8 +116,8 @@ const createCurrentWeatherPanel = (data) => {
     const current_weather_content = createDivElement("", "current-weather-content", null);
 
     const temp_container = createDivElement("", "temp-container", null);
-    const actual_temp = createDivElement(`${current_temp} ${units}`, "actual-temp", null);
-    const feels_like = createDivElement(`Feels Like  ${data.currentConditions.feelslike} ${units}`, "feels-like", null);
+    const actual_temp = createDivElement(`${convertTemp(current_temp, units)} ${units}`, "actual-temp", null);
+    const feels_like = createDivElement(`Feels Like  ${convertTemp(data.currentConditions.feelslike, units)} ${units}`, "feels-like", null);
     const conditions = createDivElement(data.currentConditions.conditions, "conditions", null);
     temp_container.appendChild(actual_temp);    
     temp_container.appendChild(feels_like);    
@@ -168,15 +167,22 @@ const createSpanElement = (text="", id=null, cls=null) => {
 }
 
 
+const convertTemp = (tempC, units) => {
+    if (units === "°F") {
+        return Math.round(convertCtoF(tempC));
+    } else {
+        return Math.round(tempC);
+    }
+}
 
 const convertCtoF = (tempC) => {
     return (tempC * 9/5) + 32;
 };
 
 
-const convertFtoC = (tempF) => {
-    return (tempF - 32) * 5/9;
-};
+// const convertFtoC = (tempF) => {
+//     return (tempF - 32) * 5/9;
+// };
 
 
 
