@@ -15,6 +15,7 @@ let DEFAULT_LOCATION = 'Melbourne';
 const FORECAST_DAYS = 15;
 const API_KEY = '4G7BU7TV8PA554USAZK7L53UU';
 
+
 const clearContent = () => {
     while (content.lastChild) {
         content.lastChild.remove();
@@ -91,15 +92,79 @@ export const loadMainPage = async () => {
 
 
     // add current location and temp to header
-    const current_loc = data.resolvedAddress;
     const current_temp =  data.currentConditions.temp;
-    loc.textContent = current_loc;
+    loc.textContent = data.resolvedAddress;
     temp.textContent = current_temp;
-
-    // body.appendChild(content);
+  
+    // render current weather panel
+    content.appendChild(createCurrentWeatherPanel(data));
 
 
 };
+
+const createCurrentWeatherPanel = (data) => {
+    const current_time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    const current_temp =  data.currentConditions.temp;
+    const units = "°C"; // hard-coded for now
+
+    const current_weather = createDivElement("", "current-weather", null);
+    
+    const current_weather_header = createDivElement("", "current-weather-header", null);
+    current_weather_header.appendChild(createSpanElement("Current Weather", null, null));
+    current_weather_header.appendChild(createSpanElement(current_time, "time", null));
+
+    const current_weather_content = createDivElement("", "current-weather-content", null);
+
+    const temp_container = createDivElement("", "temp_container", null);
+    const actual_temp = createDivElement(`${current_temp} ${units}`, "actual-temp", null);
+    const feels_like = createDivElement(`Feels Like  ${data.currentConditions.feelslike} ${units}`, "feels-like", null);
+    const conditions = createDivElement(data.currentConditions.conditions, "conditions", null);
+    temp_container.appendChild(actual_temp);    
+    temp_container.appendChild(feels_like);    
+    temp_container.appendChild(conditions);
+    
+    const other = createDivElement("", "other-weather", null);
+    const wind_speed = createDivElement(`Wind Speed  ${data.currentConditions.windspeed} km/h`, "wind-speed", null);
+    const visibility = createDivElement(`Visibility  ${data.currentConditions.visibility} km`, "wind-speed", null);
+    const humidity = createDivElement(`Humidity  ${data.currentConditions.humidity} %`, "wind-speed", null);
+    other.appendChild(wind_speed);
+    other.appendChild(visibility);
+    other.appendChild(humidity);
+    
+    current_weather_content.appendChild(temp_container);
+    current_weather_content.appendChild(other);
+    current_weather.appendChild(current_weather_header);
+    current_weather.appendChild(current_weather_content);
+    console.log(current_weather);
+
+    return current_weather;
+};
+
+
+const createDivElement = (text="", id=null, cls=null) => {
+    const elem = document.createElement("div");
+    elem.textContent = text;
+    if (id) {
+        elem.id = id
+    }
+    if (cls) {
+        elem.classList.add(cls);
+    }
+    return elem
+};
+
+const createSpanElement = (text="", id=null, cls=null) => {
+    const elem = document.createElement("span");
+    elem.textContent = text;
+    if (id) {
+        elem.id = id
+    }
+    if (cls) {
+        elem.classList.add(cls);
+    }
+    return elem
+}
+
 
 
 const convertCtoF = (tempC) => {
