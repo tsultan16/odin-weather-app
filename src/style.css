@@ -93,8 +93,8 @@ header {
     background-color: white;
     border: 1px solid blue;
     border-radius: 0.4em;
-    width: 22em;
-    height: 11em;
+    width: 26em;
+    height: 13em;
     padding: 1em 1.5em;
 
     display: flex;
@@ -128,14 +128,14 @@ header {
 }
 
 #actual-temp{
-    font-size: 2.25em;
+    font-size: 3em;
     font-weight: bold;
 }
 
 #other-weather {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.75em;
 }
 
 
