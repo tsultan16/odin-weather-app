@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    --theme-color : rgba(221, 226, 213, 0.432);
+    --theme-color : rgba(184, 190, 194, 0.614);
     --theme-color-shadow : rgba(43, 59, 83, 0.448);
 }
 
@@ -11,9 +11,14 @@ body {
     height: 100vh;
     background-color: var(--theme-color);
  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 header {
+    width: 70vw;
     background-color: black;
 
     display: flex;
@@ -42,6 +47,7 @@ header {
 
 #location p {
     color: white;
+    font-size:0.8em;
 }
 
 #search-bar {
@@ -68,7 +74,70 @@ header {
     width: 70vw;
     height: 100vh;
     display : grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 20fr 1fr;
-    
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
 }
+
+#current-weather-cell {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+#current-weather {
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 0.4em;
+    width: 22em;
+    height: 11em;
+    padding: 1em 1.5em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+}
+
+#current-weather-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom:  1px solid rgb(165, 165, 165);
+    font-weight: 600;
+}
+
+
+#current-weather-header {
+    color: rgb(121, 122, 122);
+}
+
+#current-weather-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#temp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+#actual-temp{
+    font-size: 2.25em;
+    font-weight: bold;
+}
+
+#other-weather {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+
+
+

@@ -96,7 +96,7 @@ export const loadMainPage = async () => {
     loc.textContent = data.resolvedAddress;
     temp.textContent = current_temp;
   
-    // render current weather panel
+    // render current weather panel and append to content grid
     content.appendChild(createCurrentWeatherPanel(data));
 
 
@@ -105,8 +105,9 @@ export const loadMainPage = async () => {
 const createCurrentWeatherPanel = (data) => {
     const current_time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     const current_temp =  data.currentConditions.temp;
-    const units = "°C"; // hard-coded for now
+    const units = "°C"; // hard-coded for now (will hook up with toggle switch later)
 
+    const current_weather_cell = createDivElement("", "current-weather-cell", null);
     const current_weather = createDivElement("", "current-weather", null);
     
     const current_weather_header = createDivElement("", "current-weather-header", null);
@@ -115,7 +116,7 @@ const createCurrentWeatherPanel = (data) => {
 
     const current_weather_content = createDivElement("", "current-weather-content", null);
 
-    const temp_container = createDivElement("", "temp_container", null);
+    const temp_container = createDivElement("", "temp-container", null);
     const actual_temp = createDivElement(`${current_temp} ${units}`, "actual-temp", null);
     const feels_like = createDivElement(`Feels Like  ${data.currentConditions.feelslike} ${units}`, "feels-like", null);
     const conditions = createDivElement(data.currentConditions.conditions, "conditions", null);
@@ -135,9 +136,10 @@ const createCurrentWeatherPanel = (data) => {
     current_weather_content.appendChild(other);
     current_weather.appendChild(current_weather_header);
     current_weather.appendChild(current_weather_content);
-    console.log(current_weather);
+    current_weather_cell.appendChild(current_weather);
+    // console.log(current_weather);
 
-    return current_weather;
+    return current_weather_cell;
 };
 
 
