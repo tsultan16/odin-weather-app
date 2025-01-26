@@ -1,4 +1,4 @@
-import {oadMainPage} from "./mainPage.js";
+import {loadMainPage} from "./mainPage.js";
 import "./style.css";
 
 
