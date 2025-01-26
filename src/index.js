@@ -6,14 +6,21 @@ let temperature_units = "°C";
 
 // add temp unit toggle switch event listener
 const toggle = document.querySelector("#temp-toggle");
+const celcius = document.querySelector("#celcius");
+const farenheit = document.querySelector("#farenheit");
+
 toggle.addEventListener("change", (event) => {
     if (event.target.checked) {
         console.log("Changed temp units to Farenheit.");
-        temperature_units = "°F"
+        temperature_units = "°F";
+       
     } else {
         console.log("Changed temp units to Celcius.");
-        temperature_units = "°C"
+        temperature_units = "°C";
     }
+    celcius.classList.toggle("toggled");
+    farenheit.classList.toggle("toggled");
+    
     // re-render main page with new temperature units
     loadMainPage(temperature_units);
 });

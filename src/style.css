@@ -210,6 +210,20 @@ input:checked + .slider {
     background-color: #067843;;
 }
 
+#celcius, #farenheit {
+    color: gray;
+    font-size: 1em;
+}
+
+
+#celcius.toggled, #farenheit.toggled {
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+} 
+
+
+
 
 
 
