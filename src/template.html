@@ -21,26 +21,29 @@
         <div id="location">
             <p>
                 <span id="current_location"></span> | <span id="current_temperature"></span> 
-                <span id="temp-units">°C</span>
+                <span id="temp-units"></span>
             </p>            
             <div id="search-bar">
-                <img id="search-icon" src="./images/search.svg" alt="search icon">
+                <!-- <img id="search-icon" src="./images/search.svg" alt="search icon"> -->
                 <form action="">
-                    <input id="location-input" type="text" placeholder="City" required>
+                    <button type="submit"> <img id="search-icon" src="./images/search.svg" alt="search icon"></button>
+                    <label>
+                        <input id="location-input" type="text" placeholder="City" required>
+                    </label>
                 </form>
             </div>
         </div>
 
     </header>
 
-    <div id="banner">
+    <section id="banner">
         <span id="celcius" class="toggled">°C</span>
         <label class="switch">
             <input id="temp-toggle" type="checkbox">
             <span class="slider"></span>
         </label>
         <span id="farenheit">°F</span>
-    </div>
+    </section>
 
     <div id="content"></div>
 

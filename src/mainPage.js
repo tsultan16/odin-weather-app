@@ -8,8 +8,6 @@
 
 
 const content = document.querySelector("#content");
-const loc = document.querySelector("#current_location");
-const temp = document.querySelector("#current_temperature");
 
 let DEFAULT_LOCATION = 'Melbourne';
 const FORECAST_DAYS = 15;
@@ -53,9 +51,6 @@ const getWeatherData = (location) => {
     const date1 = dateToday.toISOString().split('T')[0];
     const date2 = dateAfter.toISOString().split('T')[0]; 
 
-    console.log(date1);
-    console.log(date2);
-
     // make API call to obtain weather forecast (with metric units option)
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/${date1}/${date2}?unitGroup=metric&key=${API_KEY}`;    
     console.log(url);
@@ -84,6 +79,11 @@ const readFromCache = (url) => {
 
 
 export const loadMainPage = async (temperature_units) => {
+
+    const loc = document.querySelector("#current_location");
+    const temp = document.querySelector("#current_temperature");
+    const units = document.querySelector("#temp-units");
+    
     // clear out all existing content first
     // clearContent();
     const data = await getWeatherData(DEFAULT_LOCATION);
@@ -91,10 +91,11 @@ export const loadMainPage = async (temperature_units) => {
 
 
     // add current location and temp to header
-    const current_temp =  data.currentConditions.temp;
+    const current_temp =  convertTemp(data.currentConditions.temp, temperature_units);
     loc.textContent = data.resolvedAddress;
     temp.textContent = current_temp;
-  
+    units.textContent = temperature_units;
+    
     // render current weather panel and append to content grid
     content.appendChild(createCurrentWeatherPanel(data, temperature_units));
 

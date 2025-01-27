@@ -18,22 +18,13 @@ body {
 }
 
 header {
-    width: 70vw;
+    min-width: 70vw;
     background-color: black;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
 
-#banner {
-    width: 70vw;
-    padding: 1em;
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5em;
 }
 
 #brand {
@@ -52,7 +43,7 @@ header {
 #location {
     display: flex;
     align-items: center;
-    gap: 3em;
+    gap: 2em;
 }
 
 #location p {
@@ -69,8 +60,25 @@ header {
     align-items: center;
 }
 
+form {
+    display: flex;
+    align-items: center;
+}
+form > button {
+    border: none;
+    /* border-radius: 0.2em; */
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+}
+
+form > button:hover {
+    cursor: pointer;
+}
+
 #search-icon {
-    height: 1.2em;
+    height: 1.4em;
 }
 
 #location-input {
@@ -79,6 +87,23 @@ header {
     margin-left: 0.3em;
 }
 
+#location-input:focus {
+    outline: 1px solid rgb(190, 190, 190);
+    border-radius: 0.2em;
+    background-color: #ffe97b3c;
+    transition: background-color 0.2s;
+} 
+
+
+#banner {
+    width: 70vw;
+    padding: 1em;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5em;
+}
 
 #content {
     width: 70vw;
@@ -184,6 +209,7 @@ header {
     width: 100%;
     height: 100%;
     transition: background-color 0.25s ease-out;
+    will-change: transform;
   }
 
 /*  circular slider pseudo element*/
@@ -198,6 +224,7 @@ header {
     border-radius: 50%;
     background-color: white;
     transition: transform 0.25s ease-out;
+    will-change: transform;
 }
 
 /*  move the slider when input box is checked */
