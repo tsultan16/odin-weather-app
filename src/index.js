@@ -8,12 +8,6 @@ let temperature_units = "°C";
 const input = document.querySelector("#location-input");
 const form = document.querySelector("form");
 
-// input.addEventListener("input", (event) => {
-//     const loc_input = event.target.value;
-//     console.log("Form Input: ", loc_input);
-// });
-
-
 form.addEventListener("submit", (event) => {
     location = input.value;
     // prevent default submission HTTP request

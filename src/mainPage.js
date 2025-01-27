@@ -101,17 +101,53 @@ export const loadMainPage = async (temperature_units, location) => {
     console.log("Loaded main page!");
 };
 
+const convertUTC = (date) => {
+    const date_UTC = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return date_UTC;
+};
+
+const getTime12hr = (date) => {
+    return date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+};
+
+const getDate = (date) => {
+    // Day DD MM YY
+    //return date.toString().split(' ').slice(0, 4).join(' ');
+
+    // DD MM
+    return date.toString().split(' ').slice(1, 3).join(' ');
+}
+
+const getTargetDate = (date_local, tzoffset) => {
+    // first convert my local time to UTC
+    const date_UTC = convertUTC(date_local)
+
+    // apply tzoffset to get the local time for target
+    const date_target = new Date(date_UTC.getTime() + tzoffset * 3600 * 1000); // convert offset from hours to milli sec
+    return date_target;
+}
+
 const createCurrentWeatherPanel = (data, temperature_units) => {
-    const current_time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     const current_temp =  data.currentConditions.temp;
     const units = temperature_units; 
+
+    // find local date-time at target location  
+    const date_local = new Date();
+    const tzoffset = data.tzoffset;
+    const date_target = getTargetDate(date_local, tzoffset); 
+    const datetime_target = `${getDate(date_target)}, ${getTime12hr(date_target)}`;
+    
+    // console.log("Target local time: ", date_target, current_time);
+    // console.log("My local date time: ", date_local, `${getDate(date_local)}, ${getTime12hr(date_local)}`);
+    // console.log("Target tzoffset: ", tzoffset);
+    
 
     const current_weather_cell = createDivElement("", "current-weather-cell", null);
     const current_weather = createDivElement("", "current-weather", null);
     
     const current_weather_header = createDivElement("", "current-weather-header", null);
     current_weather_header.appendChild(createSpanElement("Current Weather", null, null));
-    current_weather_header.appendChild(createSpanElement(current_time, "time", null));
+    current_weather_header.appendChild(createSpanElement(datetime_target, "time", null));
 
     const current_weather_content = createDivElement("", "current-weather-content", null);
 
