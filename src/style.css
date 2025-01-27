@@ -90,10 +90,12 @@ form > button:hover {
 }
 
 #location-input:focus {
-    outline: 1px solid rgb(190, 190, 190);
+    /* outline: 1px solid rgb(190, 190, 190); */
+    outline: none;
     border-radius: 0.2em;
-    background-color: #ffe97b1b;
-    transition: background-color 0.2s;
+    /* background-color: #ffe97b1b; */
+    box-shadow: 0 0 3px 2px rgb(127, 251, 255);
+    transition: box-shadow 0.1s; 
 } 
 
 

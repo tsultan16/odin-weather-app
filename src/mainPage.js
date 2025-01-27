@@ -9,7 +9,6 @@
 
 const content = document.querySelector("#content");
 
-let DEFAULT_LOCATION = 'Melbourne';
 const FORECAST_DAYS = 15;
 const API_KEY = '4G7BU7TV8PA554USAZK7L53UU';
 
@@ -78,15 +77,15 @@ const readFromCache = (url) => {
 
 
 
-export const loadMainPage = async (temperature_units) => {
+export const loadMainPage = async (temperature_units, location) => {
 
     const loc = document.querySelector("#current_location");
     const temp = document.querySelector("#current_temperature");
     const units = document.querySelector("#temp-units");
-    
+
     // clear out all existing content first
     // clearContent();
-    const data = await getWeatherData(DEFAULT_LOCATION);
+    const data = await getWeatherData(location);
     console.log(data);
 
 
@@ -99,7 +98,7 @@ export const loadMainPage = async (temperature_units) => {
     // render current weather panel and append to content grid
     content.appendChild(createCurrentWeatherPanel(data, temperature_units));
 
-
+    console.log("Loaded main page!");
 };
 
 const createCurrentWeatherPanel = (data, temperature_units) => {
